@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "700816328336",
+    "firebase_url": "https://health-plus-c79a7.firebaseio.com",
+    "project_id": "health-plus-c79a7",
+    "storage_bucket": "health-plus-c79a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700816328336:android:ab8a9cc9024bb7e1317a15",
+        "android_client_info": {
+          "package_name": "com.ackrotech.healthplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700816328336-46evqdq3tfs1ckt2fmkqcst0c6j9gtkk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ackrotech.healthplus",
+            "certificate_hash": "b24d3f9106c7774f29077ae986a083c3955ff0fa"
+          }
+        },
+        {
+          "client_id": "700816328336-5mfagl3jq4lc2p720d7e45jr4mb9ufi1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt0INUin8ZuoSpCOH5fQM35DR6VEGDEIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700816328336-5mfagl3jq4lc2p720d7e45jr4mb9ufi1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
