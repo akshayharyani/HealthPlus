@@ -17,7 +17,7 @@ import com.ackrotech.healthplus.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_profile};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_profile, R.string.tab_text_2, R.string.tab_text_covid_stats};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -27,19 +27,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
 
         switch (position) {
             case 0:
-                // Top Rated fragment activity
-                return PlaceholderFragment.newInstance(position + 1);
+                return new ProfileFragement();
             case 1:
-                // Games fragment activity
                 return PlaceholderFragment.newInstance(position + 1);
             case 2:
-                // Movies fragment activity
-                return new ProfileFragement();
+                return new CovidStatsFragment();
+
         }
 
         return null;
@@ -54,7 +50,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
         return 3;
     }
 }
