@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ackrotech.healthplus.R;
@@ -42,6 +43,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 
@@ -57,6 +60,7 @@ public class CovidStatsFragment extends Fragment {
     private static final String TAG = CovidStatsFragment.class.getSimpleName();
     private LineChart chart;
     private  List<CovidStats> data;
+    private TextView totalCasesTextView, recoveredCasesTextView, deathsTextView;
 
     public CovidStatsFragment() {
         // Required empty public constructor
@@ -108,6 +112,12 @@ public class CovidStatsFragment extends Fragment {
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);
         data = new ArrayList<>();
+
+        totalCasesTextView = view.findViewById(R.id.total_cases);
+        recoveredCasesTextView = view.findViewById(R.id.recovered_cases);
+        deathsTextView = view.findViewById(R.id.deaths);
+
+
         makeDataRequest();
 
         return view;
@@ -208,6 +218,38 @@ public class CovidStatsFragment extends Fragment {
         chart.setData(lineData);
         chart.notifyDataSetChanged();
         chart.invalidate();
+        setStats();
     }
 
+    public void setStats(){
+        CovidStats latest = data.get(0);
+        totalCasesTextView.setText(format(latest.getConfirmed_cases()));
+        recoveredCasesTextView.setText(format(latest.getRecovered()));
+        deathsTextView.setText(format(latest.getDeaths()));
+    }
+
+    private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
+    static {
+        suffixes.put(1_000L, "k");
+        suffixes.put(1_000_000L, "M");
+        suffixes.put(1_000_000_000L, "G");
+        suffixes.put(1_000_000_000_000L, "T");
+        suffixes.put(1_000_000_000_000_000L, "P");
+        suffixes.put(1_000_000_000_000_000_000L, "E");
+    }
+
+    public static String format(long value) {
+        //Long.MIN_VALUE == -Long.MIN_VALUE so we need an adjustment here
+        if (value == Long.MIN_VALUE) return format(Long.MIN_VALUE + 1);
+        if (value < 0) return "-" + format(-value);
+        if (value < 1000) return Long.toString(value); //deal with easy case
+
+        TreeMap.Entry<Long, String> e = suffixes.floorEntry(value);
+        Long divideBy = e.getKey();
+        String suffix = e.getValue();
+
+        long truncated = value / (divideBy / 10); //the number part of the output times 10
+        boolean hasDecimal = truncated < 100 && (truncated / 10d) != (truncated / 10);
+        return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
+    }
 }
