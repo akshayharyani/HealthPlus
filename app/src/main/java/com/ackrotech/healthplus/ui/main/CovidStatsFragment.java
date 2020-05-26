@@ -3,6 +3,8 @@ package com.ackrotech.healthplus.ui.main;
 import android.graphics.fonts.SystemFonts;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.SystemClock;
@@ -83,6 +85,15 @@ public class CovidStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_covid_stats, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
         chart = (LineChart) view.findViewById(R.id.chart);
         chart.setTouchEnabled(false);
         chart.getAxisLeft().setDrawGridLines(false);
@@ -101,7 +112,7 @@ public class CovidStatsFragment extends Fragment {
 
                 try {
                     Date date = new Date(new Float(value).longValue());
-                return mFormat.format(date);
+                    return mFormat.format(date);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -120,7 +131,6 @@ public class CovidStatsFragment extends Fragment {
 
         makeDataRequest();
 
-        return view;
     }
 
 
@@ -197,7 +207,6 @@ public class CovidStatsFragment extends Fragment {
 
     public void initializeGraph(List<CovidStats> data) {
 
-        System.out.println(data.size());
         ArrayList<Entry> entries = new ArrayList<>();
         for (int i = 0; i < data.size()-50; i++) {
             CovidStats stat = data.get(i);

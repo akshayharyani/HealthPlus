@@ -17,7 +17,7 @@ import com.ackrotech.healthplus.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_profile, R.string.tab_text_2, R.string.tab_text_covid_stats};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_profile, R.string.tab_text_home, R.string.tab_text_covid_stats};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -32,7 +32,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new ProfileFragement();
             case 1:
-                return PlaceholderFragment.newInstance(position + 1);
+                return new HomeFragment();
             case 2:
                 return new CovidStatsFragment();
 
