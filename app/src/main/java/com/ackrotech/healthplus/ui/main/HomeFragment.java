@@ -1,5 +1,6 @@
 package com.ackrotech.healthplus.ui.main;
 
+import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,7 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.ackrotech.healthplus.R;
 
 
 /**
@@ -17,6 +23,7 @@ import android.view.View;
  */
 public class HomeFragment extends Fragment {
 
+    ImageView mImgCheck;
 
 
     public static HomeFragment newInstance() {
@@ -27,14 +34,18 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        mImgCheck = (ImageView) view.findViewById(R.id.statusImage);
+        ((Animatable) mImgCheck.getDrawable()).start();
 
     }
 

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+    android:padding="10dp">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?selectableItemBackground"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/encounters_header"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                android:text="Encounters " />
+
+            <ImageView
+                android:layout_width="@dimen/chevron_size_title"
+                android:layout_height="@dimen/chevron_size_title"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:src="@drawable/ic_chevron_right"
+                android:tint="@color/dark_main" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/encounters_details"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="5dp">
+
+            <LinearLayout
+                android:id="@+id/encounters_row1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/chevron_size_title"
+                    android:layout_height="@dimen/chevron_size_title"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:layout_marginStart="@dimen/spacing_medium"
+                    android:src="@drawable/baseline_done_black_18dp"
+                    android:tint="@color/dark_main" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Contact Tracing Enabled " >
+
+                </TextView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/encounters_row2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/encounters_count"
+                    android:layout_width="@dimen/chevron_size_title"
+                    android:layout_height="@dimen/chevron_size_title"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:layout_marginStart="@dimen/spacing_medium"
+                    android:textSize="18dp"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/encounters_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Encounters" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
