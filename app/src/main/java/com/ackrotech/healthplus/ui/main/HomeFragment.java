@@ -1,5 +1,6 @@
 package com.ackrotech.healthplus.ui.main;
 
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 
@@ -12,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ackrotech.healthplus.R;
+import com.ackrotech.healthplus.ui.login.LoginActivity;
+import com.ackrotech.healthplus.ui.report.AddReportActivity;
 
 
 /**
@@ -24,7 +28,7 @@ import com.ackrotech.healthplus.R;
 public class HomeFragment extends Fragment {
 
     ImageView mImgCheck;
-
+    TextView reportText;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -46,6 +50,14 @@ public class HomeFragment extends Fragment {
 
         mImgCheck = (ImageView) view.findViewById(R.id.statusImage);
         ((Animatable) mImgCheck.getDrawable()).start();
+
+        reportText = view.findViewById(R.id.submit_report_text);
+        reportText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddReportActivity.class));
+            }
+        });
 
     }
 
