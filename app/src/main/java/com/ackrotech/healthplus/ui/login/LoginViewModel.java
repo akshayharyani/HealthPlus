@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
 
-import com.ackrotech.healthplus.SaveSharedPreference;
 import com.ackrotech.healthplus.data.LoginRepository;
 import com.ackrotech.healthplus.data.Result;
 import com.ackrotech.healthplus.data.model.LoggedInUser;

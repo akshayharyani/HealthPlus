@@ -5,11 +5,155 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.CovidStatsFragment">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chart"
+                android:layout_margin="20dp"
+                android:padding="10dp">
 
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#e1d7e5"
+                    android:foreground="?selectableItemBackground"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/encounters_heading_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:layout_weight="1"
+                        android:text="Total Cases "
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/purple_main"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/linear1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="Confirmed"
+                            android:textAlignment="center"
+                            android:textSize="22dp" />
+
+                        <TextView
+                            android:id="@+id/total_cases"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textSize="22dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linear1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="Recovered"
+                            android:textAlignment="center"
+                            android:textSize="22dp" />
+
+                        <TextView
+                            android:id="@+id/recovered_cases"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textSize="22dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linear2"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="0dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="Deaths"
+                            android:textAlignment="center"
+                            android:textSize="22dp" />
+
+                        <TextView
+                            android:id="@+id/deaths"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textSize="22dp" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="fill_parent"
+                android:layout_height="400dp"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

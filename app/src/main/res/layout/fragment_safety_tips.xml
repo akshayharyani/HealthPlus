@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.ProfileFragement">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="22dp"
+                android:shadowColor="#00ccff"
+                android:shadowRadius="2"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:text="CDC guidelines to prevent COVID-19"
+                android:id="@+id/text1">
+
+            </TextView>
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/videoView"
+                android:layout_margin="20dp"
+                android:layout_below="@id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:videoId="9Ay4u7OYOhA"
+                app:autoPlay="false"
+                app:showFullScreenButton="false">
+
+            </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/washHandsAnimationView"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:layout_below="@id/videoView"
+                app:lottie_rawRes="@raw/wash" />
+
+            <TextView
+                android:id="@+id/washHandText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/washHandsAnimationView"
+                android:gravity="center"
+                android:text="Wash your hands"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/stayHomeAnimationView"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:layout_below="@id/washHandText"
+                app:lottie_rawRes="@raw/stay_home" />
+
+            <TextView
+                android:id="@+id/stayHomeText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stayHomeAnimationView"
+                android:gravity="center"
+                android:text="Stay at Home"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/socialDistancingAnimationView"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:layout_below="@id/stayHomeText"
+                app:lottie_rawRes="@raw/social_distancing" />
+
+            <TextView
+                android:id="@+id/socialDistancingText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/socialDistancingAnimationView"
+                android:gravity="center"
+                android:text="Practice Social Distancing"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/maskAnimationView"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:layout_below="@id/socialDistancingText"
+                app:lottie_rawRes="@raw/wear_mask" />
+
+            <TextView
+                android:id="@+id/maskText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maskAnimationView"
+                android:gravity="center"
+                android:text="Wear mask at public places"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

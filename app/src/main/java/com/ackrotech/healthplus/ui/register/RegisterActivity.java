@@ -22,6 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -30,13 +32,15 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private String TAG = RegisterActivity.class.getSimpleName();
-
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         auth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
         btnSignIn = (Button) findViewById(R.id.btn_signin);
         btnSignUp = (Button) findViewById(R.id.register);
@@ -44,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         inputName = (EditText) findViewById(R.id.name);
         progressBar = (ProgressBar) findViewById(R.id.loading);
-
 
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -85,11 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(RegisterActivity.this, "Authentication failed: " + task.getException().getMessage(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -102,17 +102,20 @@ public class RegisterActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Log.d(TAG, "User profile updated.");
+                                                        mDatabase.child(user.getUid()).child("reports").child("dummyreport").setValue(1);
+                                                        mDatabase.child(user.getUid()).child("in_contact").setValue(false);
+
+                                                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                                        finish();
                                                     }
                                                 }
+
                                             });
 
-                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                    finish();
+
                                 }
                             }
                         });
-
             }
         });
 
