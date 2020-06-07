@@ -40,4 +40,10 @@
 
     <color name="dark_main_transparent">#754A4969</color>
     <color name="transparent">#0000</color>
+    <color name="report_bg">#d4ebf2</color>
+    <color name="encounter_bg">#d4f2e0</color>
+    <color name="encounter_bg_alert">#f2d4d7</color>
+    <color name="encounter_heading">#5ece8c</color>
+    <color name="blue_header">#5eb5ce</color>
+    <color name="encounter_header_alert">#d4727c</color>
 </resources>

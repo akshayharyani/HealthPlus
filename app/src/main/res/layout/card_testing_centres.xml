@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?selectableItemBackground"
+        android:orientation="vertical"
+        android:background="@color/report_bg"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/testing_header"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_weight="1"
+                android:textSize="23dp"
+                android:textAllCaps="true"
+                android:textColor="@color/blue_header"
+                android:textStyle="bold"
+                android:text="@string/view_testing_centres" />
+
+            <ImageView
+                android:layout_width="@dimen/chevron_size_title"
+                android:layout_height="@dimen/chevron_size_title"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:src="@drawable/ic_chevron_right"
+                android:tint="@color/blue_header" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/testing_text_line1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chevron_size_title"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:textSize="18dp"
+            android:text="You have been in contact with a potential Covid positive person " />
+
+        <TextView
+            android:id="@+id/testing_text_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/chevron_size_title"
+            android:layout_marginEnd="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_tiny_small"
+            android:textSize="18dp"
+            android:text="Click to view near by testing centres" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

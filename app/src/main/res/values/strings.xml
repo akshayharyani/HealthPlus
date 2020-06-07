@@ -32,6 +32,8 @@
     <string name="enter_test_centre_name">Enter Test Centre Name</string>
     <string name="report_file">Report File:</string>
     <string name="report_result">Report Result:</string>
+    <string name="view_testing_centres">View testing centres</string>
+    <string name="click_to_submit_a_new_test_report">Click to submit a new test report</string>
 
 
 </resources>

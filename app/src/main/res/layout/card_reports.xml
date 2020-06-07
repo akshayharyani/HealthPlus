@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackground"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@color/report_bg">
 
         <LinearLayout
             android:id="@+id/reports_header"
@@ -19,22 +20,26 @@
             android:paddingBottom="5dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_medium"
                 android:layout_weight="1"
-                android:textSize="30dp"
-                android:text="Reports " />
+                android:textSize="25dp"
+                android:text="Reports "
+                android:textStyle="bold"
+                android:textColor="@color/blue_header"
+                android:textAllCaps="true"/>
 
             <ImageView
                 android:layout_width="@dimen/chevron_size_title"
                 android:layout_height="@dimen/chevron_size_title"
                 android:layout_marginEnd="@dimen/spacing_small"
                 android:src="@drawable/ic_chevron_right"
-                android:tint="@color/dark_main" />
+                android:tint="#5eb5ce" />
 
         </LinearLayout>
         <LinearLayout
@@ -44,8 +49,7 @@
             android:paddingBottom="5dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="5dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/reports_row1"
@@ -72,43 +76,15 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/reports_row2"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/click_report_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+                android:textSize="18dp"
+                android:text="@string/click_to_submit_a_new_test_report"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_tiny_small"/>
 
-                <TextView
-                    android:id="@+id/submit_report_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textColor="@color/blue_dark"
-                    android:text="Report a test result"
-                    android:layout_marginStart="@dimen/spacing_medium"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/reports_row3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/view_testing_centers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textColor="@color/blue_dark"
-                    android:text="View nearby testing centers"
-                    android:layout_marginStart="@dimen/spacing_medium"/>
-
-            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

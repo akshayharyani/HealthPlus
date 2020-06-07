@@ -4,13 +4,14 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/encounter_bg">
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackground"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/encounters_header"
@@ -26,15 +27,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_medium"
                 android:layout_weight="1"
-                android:textSize="30dp"
-                android:text="Encounters " />
+                android:text="Encounters "
+                android:textSize="25dp"
+                android:textAllCaps="true"
+                android:textColor="@color/encounter_heading"
+                android:textStyle="bold"
+                android:id="@+id/encounters_heading_text"/>
 
             <ImageView
                 android:layout_width="@dimen/chevron_size_title"
                 android:layout_height="@dimen/chevron_size_title"
                 android:layout_marginEnd="@dimen/spacing_small"
                 android:src="@drawable/ic_chevron_right"
-                android:tint="@color/dark_main" />
+                android:tint="@color/encounter_heading"
+                android:id="@+id/encounter_arrow"/>
 
         </LinearLayout>
         <LinearLayout

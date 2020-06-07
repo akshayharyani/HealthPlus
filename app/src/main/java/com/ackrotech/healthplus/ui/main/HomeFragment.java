@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,15 +35,15 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class HomeFragment extends Fragment {
 
-    private TextView reportText, reportCountText, encounterCountText;
+    private TextView  reportCountText, encounterCountText, encountersHeadingText;
     private FirebaseAuth mAuth;
     private static final String TAG = HomeFragment.class.getSimpleName();
     private DatabaseReference ref;
     private Boolean is_contacted = false;
-    private LinearLayout reportsRowTestingCenter;
     private LottieAnimationView animationView;
     private int reportsCount = 0, encountersCount = 0;
-
+    private CardView reportCard, testingCentreCard, encounterCard;
+    private ImageView encounterArrow;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -65,27 +67,31 @@ public class HomeFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-
         animationView = view.findViewById(R.id.animationView);
 
         reportCountText = view.findViewById(R.id.reports_count);
         encounterCountText = view.findViewById(R.id.encounters_count);
+        encountersHeadingText = view.findViewById(R.id.encounters_heading_text);
 
-        reportText = view.findViewById(R.id.submit_report_text);
-        reportText.setOnClickListener(new View.OnClickListener() {
+        encounterArrow = view.findViewById(R.id.encounter_arrow);
+
+        reportCard = view.findViewById(R.id.reports_card);
+        reportCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AddReportActivity.class));
             }
         });
 
-        reportsRowTestingCenter = (LinearLayout) view.findViewById(R.id.reports_row3);
-        reportsRowTestingCenter.setOnClickListener(new View.OnClickListener() {
+        testingCentreCard = view.findViewById(R.id.testing_centre_card);
+        testingCentreCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), NearByTestCenterActivity.class));
             }
         });
+
+        encounterCard = view.findViewById(R.id.encounters_card);
 
         try {
             String path = "users/"+mAuth.getCurrentUser().getUid();
@@ -97,11 +103,16 @@ public class HomeFragment extends Fragment {
                     reportsCount = (int)  dataSnapshot.child("reports").getChildrenCount();
                     reportsCount -= 1;
                     if(is_contacted){
-                        reportsRowTestingCenter.setVisibility(View.VISIBLE);
+                        testingCentreCard.setVisibility(View.VISIBLE);
+                        encounterCard.setCardBackgroundColor(getResources().getColor(R.color.encounter_bg_alert));
                         animationView.setAnimation(R.raw.health_error);
+                        encountersHeadingText.setTextColor(getResources().getColor(R.color.encounter_header_alert));
+                        encounterArrow.setColorFilter(getResources().getColor(R.color.encounter_header_alert));
                         encountersCount = 1;
                     }else{
                         animationView.setAnimation(R.raw.health_ok);
+                        encounterCard.setCardBackgroundColor(getResources().getColor(R.color.encounter_bg));
+
                     }
                     animationView.playAnimation();
                     reportCountText.setText(String.valueOf(reportsCount));
