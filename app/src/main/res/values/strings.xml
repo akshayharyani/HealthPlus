@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">HealthPlus</string>
+    <string name="app_name">Health Plus</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_safety">Safety Tips</string>
     <string name="tab_text_profile">My Profile</string>
     <string name="tab_text_home">Home</string>
     <string name="title_activity_login">Sign in</string>
@@ -21,6 +22,16 @@
     <string name="tab_text_covid_stats">COVID stats</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="placeholder_text">Placeholder</string>
+    <string name="title_activity_near_by_test_center">Map</string>
+    <string name="choose">Choose..</string>
+    <string name="submit_report">Submit and Notify</string>
+    <string name="upload">Upload</string>
+    <string name="path">path..</string>
+    <string name="date">Date:</string>
+    <string name="test_centre">Test Centre:</string>
+    <string name="enter_test_centre_name">Enter Test Centre Name</string>
+    <string name="report_file">Report File:</string>
+    <string name="report_result">Report Result:</string>
 
 
 </resources>

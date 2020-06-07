@@ -29,9 +29,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.ackrotech.healthplus.R;
+import com.ackrotech.healthplus.Utility.DBHelper;
+import com.ackrotech.healthplus.Utility.VolleyUtility;
 import com.ackrotech.healthplus.data.model.UserReport;
+import com.ackrotech.healthplus.ui.main.HomeFragment;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,8 +55,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddReportActivity extends AppCompatActivity {
@@ -57,8 +69,10 @@ public class AddReportActivity extends AppCompatActivity {
     private TextView tvDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText etCentreName;
-    private Spinner spinner1;
-    private static final String[] items = {"Positive", "Negative"};
+    private Spinner testResult;
+    private String positiveString = "Positive";
+    private String negativeString = "Negative";
+    private  String[] items = {positiveString, negativeString};
     private Button btnChooseFile;
     private Button btnSubmit;
     private Button btnUploadFile;
@@ -67,7 +81,6 @@ public class AddReportActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseDatabase database;
     private ProgressDialog progressDialog;
-    private String spinnerResult;
     private static final String KEY_RESULT = "result";
     private static final String KEY_DATE = "date";
     private static final String KEY_TESTCENTRE = "testCentre";
@@ -75,16 +88,23 @@ public class AddReportActivity extends AppCompatActivity {
     private Uri imgUri;
     private DatabaseReference ref;
     private UserReport userReport;
-    private StorageReference mStorageref;
     private StorageTask uploadTask;
+    private static final String TAG = AddReportActivity.class.getSimpleName();
+    private DBHelper dbHelper;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
+        dbHelper = DBHelper.getInstance(this);
+        mAuth = FirebaseAuth.getInstance();
 
 
         tvFilePathShow = (TextView) findViewById(R.id.tvFilePath);
@@ -92,11 +112,10 @@ public class AddReportActivity extends AppCompatActivity {
         btnChooseFile = (Button) findViewById(R.id.btnChooseFile);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         tvDate = (TextView) findViewById(R.id.tvDateSelect);
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        testResult = (Spinner) findViewById(R.id.test_result);
         userReport = new UserReport();
 
         ref = FirebaseDatabase.getInstance().getReference().child("users");
-        mStorageref = FirebaseStorage.getInstance().getReference(userUid).child("reports").child("users");
         btnUploadFile = (Button) findViewById(R.id.btnUploadFile);
 
         //buttons
@@ -127,10 +146,19 @@ public class AddReportActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String testRes = testResult.getSelectedItem().toString();
                 userReport.setCentreName(etCentreName.getText().toString().trim());
                 userReport.setDate(tvDate.getText().toString());
-                userReport.setReportResult(spinner1.getSelectedItem().toString());
-                ref.child(userUid).child("reports").setValue(userReport);
+                userReport.setReportResult(testResult.getSelectedItem().toString());
+
+                DatabaseReference reportsRef = ref.child(userUid).child("reports").push();
+                reportsRef.setValue(userReport);
+
+                if(testRes.equals(positiveString)){
+                    notifyAllContactedUsers();
+                    updateFirebaseDb(mAuth.getCurrentUser().getUid());
+                }
+
                 Toast.makeText(AddReportActivity.this, "Data added successfully", Toast.LENGTH_SHORT).show();
             }
 
@@ -148,10 +176,10 @@ public class AddReportActivity extends AppCompatActivity {
         });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        spinner1.setAdapter(adapter);
+        testResult.setAdapter(adapter);
 
 
-        //date set code
+        //date set
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -227,4 +255,66 @@ public class AddReportActivity extends AppCompatActivity {
         });
 
     }
+
+
+    private void notifyAllContactedUsers(){
+        Log.d(TAG,"in notify all");
+        List<String> users = dbHelper.getAllContactedUser();
+        for(String userId : users){
+            Log.d(TAG,userId);
+            sendNotification(userId);
+            updateFirebaseDb(userId);
+        }
+    }
+
+    private void updateFirebaseDb(String userId){
+        ref.child(userId).child("in_contact").setValue(true);
+    }
+
+    private void sendNotification(String userId) {
+        Log.d(TAG, "Sending notification to "+userId);
+
+        String FCM_API = "https://fcm.googleapis.com/fcm/send";
+        String serverKey = "key=" + "AAAAoyvohpA:APA91bH_jI6RrT1xCPXPRc-jjrnuU7TyLYhZ-2E3HlwUgAQsC1dBqmfULNeRAYBbn8dGuRAnE2Avux2Ivxtbrog50huSkHNu10wOtVwSrA0jc3-clW5Robde6pW72_9swz00aBQ-HiOP";
+        String contentType = "application/json";
+        String TOPIC = "/topics/"+userId;
+        JSONObject notification = new JSONObject();
+        JSONObject notifcationBody = new JSONObject();
+        try {
+            notifcationBody.put("title", "Covid Contact alert");
+            notifcationBody.put("message", "You have been in contact with someone who has been tested COVID positive.");
+
+            notification.put("to", TOPIC);
+            notification.put("data", notifcationBody);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i(TAG, "onResponse: " + response.toString());
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Request error", Toast.LENGTH_LONG).show();
+                            Log.i(TAG, "onErrorResponse: Didn't work");
+                        }
+                    }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Authorization", serverKey);
+                    params.put("Content-Type", contentType);
+                    return params;
+                }
+            };
+            VolleyUtility.getInstance(this).addToRequestQueue(jsonObjectRequest);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "onCreate: " + e.getMessage() );
+        }
+    }
+
 }

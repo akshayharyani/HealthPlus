@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/encounters_details"
+            android:id="@+id/reports_details"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:paddingBottom="5dp"
@@ -90,6 +90,26 @@
                     android:layout_marginStart="@dimen/spacing_medium"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/reports_row3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/view_testing_centers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textColor="@color/blue_dark"
+                    android:text="View nearby testing centers"
+                    android:layout_marginStart="@dimen/spacing_medium"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

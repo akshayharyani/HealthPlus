@@ -1,13 +1,11 @@
 package com.ackrotech.healthplus;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.ackrotech.healthplus.Utility.DBHelper;
-import com.ackrotech.healthplus.Utility.NearbyBackgroundService;
-import com.ackrotech.healthplus.data.model.DeviceMessage;
+import com.ackrotech.healthplus.Services.NearbyBackgroundService;
 import com.ackrotech.healthplus.ui.login.LoginActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -16,40 +14,30 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
-import com.google.android.gms.nearby.messages.MessagesOptions;
-import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.PublishCallback;
 import com.google.android.gms.nearby.messages.PublishOptions;
 import com.google.android.gms.nearby.messages.Strategy;
 import com.google.android.gms.nearby.messages.SubscribeCallback;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import android.app.PendingIntent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ackrotech.healthplus.ui.main.SectionsPagerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -65,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private MessageListener mMessageListener;
     private DBHelper dbHelper;
     private GoogleApiClient mGoogleApiClient;
+    private Toolbar toolbar;
 
 
     @Override
@@ -75,12 +64,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mAuth = FirebaseAuth.getInstance();
         dbHelper = DBHelper.getInstance(this);
 
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/"+mAuth.getCurrentUser().getUid());
 
-
-
-//        mPubMessage = DeviceMessage.newNearbyMessage(getUUID(getSharedPreferences(
-//                getApplicationContext().getPackageName(), Context.MODE_PRIVATE)), message);
-
+//      mPubMessage = DeviceMessage.newNearbyMessage(getUUID(getSharedPreferences(
+//      getApplicationContext().getPackageName(), Context.MODE_PRIVATE)), message);
 
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -142,6 +129,31 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+
+            case R.id.action_logout:
+                logout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logout() {
+        mAuth.signOut();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
 
     /**
      * Subscribes to messages from nearby devices and updates the UI if the subscription either

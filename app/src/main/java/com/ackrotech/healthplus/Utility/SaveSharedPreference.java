@@ -1,4 +1,4 @@
-package com.ackrotech.healthplus;
+package com.ackrotech.healthplus.Utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;

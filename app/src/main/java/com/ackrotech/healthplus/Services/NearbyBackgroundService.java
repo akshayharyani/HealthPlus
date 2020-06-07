@@ -1,9 +1,10 @@
-package com.ackrotech.healthplus.Utility;
+package com.ackrotech.healthplus.Services;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.ackrotech.healthplus.Utility.DBHelper;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;

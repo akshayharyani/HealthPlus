@@ -1,9 +1,7 @@
 package com.ackrotech.healthplus.data;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.ackrotech.healthplus.SaveSharedPreference;
 import com.ackrotech.healthplus.data.model.LoggedInUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,7 +10,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
-import java.util.concurrent.Executor;
 
 import javax.security.auth.login.LoginException;
 

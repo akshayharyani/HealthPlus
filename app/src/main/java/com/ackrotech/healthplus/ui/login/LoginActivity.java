@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.ackrotech.healthplus.MainActivity;
 import com.ackrotech.healthplus.R;
 import com.ackrotech.healthplus.ui.register.RegisterActivity;
-import com.ackrotech.healthplus.SaveSharedPreference;
+import com.ackrotech.healthplus.Utility.SaveSharedPreference;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {

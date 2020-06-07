@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.register.RegisterActivity">
 
-
     <Button
         android:id="@+id/btn_signin"
         android:layout_width="fill_parent"
@@ -25,12 +24,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register"
         app:layout_constraintVertical_bias="0.2"
-        style="?android:attr/borderlessButtonStyle"
-        />
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
@@ -42,7 +40,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"/>
 
     <EditText
         android:id="@+id/password"
@@ -82,10 +82,36 @@
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_name"
         android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/logoimg"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_text"
+        android:text="@string/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/logoimg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="40dp"
+        />
+
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="24dp"
+        android:id="@+id/logoimg"
+        />
+
 
     <ProgressBar
         android:id="@+id/loading"

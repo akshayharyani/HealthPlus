@@ -103,16 +103,19 @@ public class RegisterActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         mDatabase.child(user.getUid()).child("reports").child("dummyreport").setValue(1);
+                                                        mDatabase.child(user.getUid()).child("in_contact").setValue(false);
+
+                                                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                                        finish();
                                                     }
                                                 }
+
                                             });
 
-                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                    finish();
+
                                 }
                             }
                         });
-
             }
         });
 
