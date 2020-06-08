@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/"+mAuth.getCurrentUser().getUid());
 
+
 //      mPubMessage = DeviceMessage.newNearbyMessage(getUUID(getSharedPreferences(
 //      getApplicationContext().getPackageName(), Context.MODE_PRIVATE)), message);
 

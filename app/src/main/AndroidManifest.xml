@@ -24,7 +24,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".NearByTestCenterActivity"
+            android:name=".ui.nearbyCentres.NearByTestCenterActivity"
             android:label="@string/title_activity_near_by_test_center"/>
         <activity
             android:name=".ui.report.AddReportActivity"

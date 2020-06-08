@@ -13,10 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ackrotech.healthplus.NearByTestCenterActivity;
+import com.ackrotech.healthplus.ui.nearbyCentres.NearByTestCenterActivity;
 import com.ackrotech.healthplus.R;
 import com.ackrotech.healthplus.ui.report.AddReportActivity;
 import com.airbnb.lottie.LottieAnimationView;

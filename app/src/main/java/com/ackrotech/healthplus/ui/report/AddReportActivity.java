@@ -70,8 +70,8 @@ public class AddReportActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText etCentreName;
     private Spinner testResult;
-    private String positiveString = "Positive";
-    private String negativeString = "Negative";
+    private String positiveString = "Report Result: Positive";
+    private String negativeString = "Report Result: Negative";
     private  String[] items = {positiveString, negativeString};
     private Button btnChooseFile;
     private Button btnSubmit;
@@ -92,6 +92,8 @@ public class AddReportActivity extends AppCompatActivity {
     private static final String TAG = AddReportActivity.class.getSimpleName();
     private DBHelper dbHelper;
     private FirebaseAuth mAuth;
+
+
 
 
     @Override
@@ -156,7 +158,9 @@ public class AddReportActivity extends AppCompatActivity {
 
                 if(testRes.equals(positiveString)){
                     notifyAllContactedUsers();
-                    updateFirebaseDb(mAuth.getCurrentUser().getUid());
+                    updateFirebaseDb(mAuth.getCurrentUser().getUid(), true);
+                }else{
+                    updateFirebaseDb(mAuth.getCurrentUser().getUid(), false);
                 }
 
                 Toast.makeText(AddReportActivity.this, "Data added successfully", Toast.LENGTH_SHORT).show();
@@ -263,12 +267,12 @@ public class AddReportActivity extends AppCompatActivity {
         for(String userId : users){
             Log.d(TAG,userId);
             sendNotification(userId);
-            updateFirebaseDb(userId);
+            updateFirebaseDb(userId, true);
         }
     }
 
-    private void updateFirebaseDb(String userId){
-        ref.child(userId).child("in_contact").setValue(true);
+    private void updateFirebaseDb(String userId, Boolean contact){
+        ref.child(userId).child("in_contact").setValue(contact);
     }
 
     private void sendNotification(String userId) {
